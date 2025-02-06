@@ -1,4 +1,6 @@
 # Lab3
+## Integrantes: Juan Cancelado y Diego Chicuazuque
+
 ![image](https://github.com/user-attachments/assets/b32ebd92-23d7-491e-b5c2-a4b9eb2edbe6)
 
 
