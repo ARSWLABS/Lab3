@@ -57,12 +57,19 @@ El proyecto está estructurado en varias clases:
 ```
 
 ---
+## 📌 Explicación de Queue y LinkedBlockingQueue
+
+- **Queue**: `Queue` es una interfaz en Java que define una estructura de datos en la que los elementos se agregan al final y se eliminan desde el principio (FIFO - First In, First Out). No es segura para hilos por sí sola y necesita una implementación sincronizada si se usa en entornos multihilo.
+
+- **LinkedBlockingQueue**: Es una implementación de `BlockingQueue` que está diseñada específicamente para ser segura en entornos multihilo. Utiliza una lista enlazada internamente y permite establecer un tamaño máximo para la cola. Al ser una cola bloqueante, maneja automáticamente la sincronización entre productores y consumidores, evitando problemas de concurrencia como el sondeo activo y la sobrecarga del CPU.
+
+---
 ## ⚡ Cómo Ejecutar el Proyecto
 
 1. **📂 Clonar el Repositorio**:
    ```bash
-   git clone https://https://github.com/ARSWLABS/Lab3/
-   cd LAB3
+   git clone https://github.com/tu_usuario/nombre_del_repositorio.git
+   cd LAB 3
    ```
 
 2. **🛠️ Compilar el Proyecto**:
@@ -72,7 +79,7 @@ El proyecto está estructurado en varias clases:
    ```
 
 3. **🚀 Ejecutar el Programa**:
-   Una vez compilado usamos el IDE de nuestra preferencia para ejecutarlo
+   Una vez compilado, puedes ejecutarlo desde tu IDE de conveniencia
 
 ---
 ## 📊 Respondiendo Preguntas
