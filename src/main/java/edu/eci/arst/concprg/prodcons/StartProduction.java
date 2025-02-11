@@ -25,7 +25,6 @@ public class StartProduction {
     // Inicializa un hilo productor que añade elementos a la cola.
     new Producer(queue, Long.MAX_VALUE).start();
 
-    //let the producer create products for 5 seconds (stock).
     try {
       // duerme el hilo principal por 5 segundos para que el productor pueda añadir elementos a la cola.
       Thread.sleep(5000);

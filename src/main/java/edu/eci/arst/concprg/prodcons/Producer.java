@@ -7,12 +7,14 @@ package edu.eci.arst.concprg.prodcons;
 
 import java.util.Queue;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
- * @author hcadavid
+ * Clase Producer que extiende de Thread y se encarga de añadir elementos a la cola
+ * Implementa un productor que añade elementos a la cola de enteros
+ *
+ * @author Diego Chicuazuque
+ * @version v1.0
  */
 public class Producer extends Thread {
 
@@ -38,22 +40,51 @@ public class Producer extends Thread {
   }
 
   /*
-   * En un bucle infinito, genera un nuevo número aleatorio,
-   * lo añade a la cola y duerme el hilo durante 1 segundo.
-   * Imprime el número que ha añadido.
+   * Actualización del método cambiando para que ahora halla un limine de stock(antes no se estaba usando la variable stockLimit)
    */
   @Override
   public void run() {
     while (true) {
-      dataSeed = dataSeed + rand.nextInt(100);
-      System.out.println("Producer added " + dataSeed);
-      queue.add(dataSeed);
-
+      // Se sincroniza la cola para evitar problemas de concurrencia
+      synchronized (queue) {
+        while (queue.size() >= stockLimit) {
+          try {
+            queue.wait(); // Espera hasta que haya espacio en la cola
+          } catch (InterruptedException e) {
+            Thread.currentThread().interrupt(); // Manejo de interrupciones
+          }
+        }
+        // Genera un nuevo número aleatorio
+        dataSeed += rand.nextInt(100);
+        System.out.println("Producer added " + dataSeed);
+        // Añade el nuevo número a la cola
+        queue.add(dataSeed);
+        queue.notifyAll(); // Notifica a los consumidores que hay un nuevo elemento
+      }
       try {
-        Thread.sleep(1000);
+        Thread.sleep(100); // Se cambio de 1000 a 100 para que el productor sea mas rapido
       } catch (InterruptedException ex) {
-        Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
+        Thread.currentThread().interrupt();
       }
     }
   }
+  /*
+   * En un bucle infinito, genera un nuevo número aleatorio,
+   * lo añade a la cola y duerme el hilo durante 1 segundo.
+   * Imprime el número que ha añadido.
+   */
+  //@Override
+  //public void run() {
+  //  while (true) {
+  //    dataSeed = dataSeed + rand.nextInt(100);
+  //    System.out.println("Producer added " + dataSeed);
+  //    queue.add(dataSeed);
+
+  //    try {
+  //      Thread.sleep(1000);
+  //    } catch (InterruptedException ex) {
+  //      Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
+  //    }
+  //  }
+  // }
 }

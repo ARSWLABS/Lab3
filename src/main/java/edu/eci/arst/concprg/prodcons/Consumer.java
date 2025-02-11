@@ -25,18 +25,38 @@ public class Consumer extends Thread {
   }
 
   /*
-   * Metodo que se encarga de consumir los elementos de la cola
-   * Este metodo se ejecuta cuando el hilo es iniciado en un bucle infinito,
-   * verifica si hay elementos en la cola. Si hay, consume el primer elemento(usando poll, que tambien
-   * lo elimina de la cola) e imprime un mensaje.
+   * Actualización del método evitando que se quede iterando de manera infinita
    */
   @Override
   public void run() {
     while (true) {
-      if (queue.size() > 0) {
+      synchronized (queue) {
+        while (queue.isEmpty()) {
+          try {
+            queue.wait(); // Espera hasta que haya elementos en la cola
+          } catch (InterruptedException e) {
+            Thread.currentThread().interrupt(); // Manejo de interrupciones
+          }
+        }
         int elem = queue.poll();
         System.out.println("Consumer consumes " + elem);
+        queue.notifyAll(); // Notifica a los productores que hay espacio
       }
     }
   }
+  /*
+   * Metodo que se encarga de consumir los elementos de la cola
+   * Este metodo se ejecuta cuando el hilo es iniciado en un bucle INFINITO,
+   * verifica si hay elementos en la cola. Si hay, consume el primer elemento(usando poll, que tambien
+   * lo elimina de la cola) e imprime un mensaje.
+   */
+  //@Override
+  //public void run() {
+  // while (true) {
+  //   if (queue.size() > 0) {
+  //     int elem = queue.poll();
+  //      System.out.println("Consumer consumes " + elem);
+  //    }
+  //  }
+  //}
 }
