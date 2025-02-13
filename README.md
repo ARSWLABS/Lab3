@@ -4,13 +4,13 @@
 ---
 🎓 Juan Cancelado y 🎓 Diego Chicuazuque
 
-## 🏰 Productor-Consumidor en Java
+## 🏗️ Productor-Consumidor en Java
 
-Este proyecto implementa el patrón de diseño **Productor-Consumidor** en Java, donde un productor genera datos y los coloca en una cola, mientras que un consumidor retira esos datos y los procesa.
+Este proyecto implementa el patrón de diseño **Productor-Consumidor** en Java, donde un productor genera datos y los coloca en una cola, mientras que un consumidor retira esos datos y los procesa. 
 El programa utiliza hilos para permitir la ejecución concurrente del productor y el consumidor.
 
 ---
-## 🏰 Arquitectura
+## 🏛️ Arquitectura
 
 El proyecto está estructurado en varias clases:
 
@@ -27,7 +27,7 @@ El proyecto está estructurado en varias clases:
 
 ```plaintext
 +-----------------+
-| StartProduction |
+|    StartProduction   |
 +-----------------+
 | - main(String[] args) |
 +-----------------+
@@ -35,7 +35,7 @@ El proyecto está estructurado en varias clases:
           |
           v
 +-----------------+
-| Producer       |
+|      Producer       |
 +-----------------+
 | - queue: Queue<Integer> |
 | - dataSeed: int       |
@@ -48,7 +48,7 @@ El proyecto está estructurado en varias clases:
           |
           v
 +-----------------+
-| Consumer       |
+|      Consumer       |
 +-----------------+
 | - queue: Queue<Integer> |
 +-----------------+
@@ -66,10 +66,10 @@ El proyecto está estructurado en varias clases:
 ---
 ## ⚡ Cómo Ejecutar el Proyecto
 
-1. **💂🏼 Clonar el Repositorio**:
+1. **📂 Clonar el Repositorio**:
    ```bash
-   git clone https://github.com/ARSWLABS/Lab3
-   cd LAB3
+   git clone https://github.com/tu_usuario/nombre_del_repositorio.git
+   cd LAB 3
    ```
 
 2. **🛠️ Compilar el Proyecto**:
@@ -82,47 +82,30 @@ El proyecto está estructurado en varias clases:
    Una vez compilado, puedes ejecutarlo desde tu IDE de conveniencia
 
 ---
-## 💊 Revisión del Código y Análisis del Invariante (Highlander-Simulator)
+## 📊 Respondiendo Preguntas
 
-El juego **Highlander-Simulator** implementa la mecánica de lucha entre inmortales de la siguiente manera:
+📌 Usando la herramienta **JVisualVM** para ver el consumo actual de recursos al ejecutar el programa:
+![image](https://github.com/user-attachments/assets/b32ebd92-23d7-491e-b5c2-a4b9eb2edbe6)
 
-### 🌟 Creación de Inmortales
+![image](https://github.com/user-attachments/assets/cc1ed3a1-6d2d-4be5-a8b5-36e1786420f7)
 
-- Se crean **N** jugadores (`Immortal`), cada uno con una vida inicial de 100 puntos (`DEFAULT_IMMORTAL_HEALTH`).
-- Todos los inmortales comparten una lista `immortalsPopulation`, que les permite acceder a sus oponentes.
+### ❓ ¿A qué se debe el alto consumo?
 
-### ⚔️ Ataques entre Inmortales
+🔹 El alto consumo de CPU se debe a que el consumidor está en un bucle infinito que verifica constantemente si hay elementos en la cola. Si la cola está vacía, el consumidor sigue ejecutando el bucle sin hacer nada, lo que consume recursos de CPU innecesariamente.
 
-- Cada inmortal corre en un **hilo independiente** (`Thread`).
-- En el método `run()`, cada inmortal selecciona aleatoriamente a otro inmortal y lo ataca (`fight(Immortal i2)`).
-- Si el oponente (`i2`) tiene más de 0 puntos de vida:
-  - Se le resta **10** puntos de vida (`DEFAULT_DAMAGE_VALUE`).
-  - El atacante suma **10** puntos de vida.
-  - Este ciclo se repite indefinidamente.
+### 🧐 ¿Cuál es la clase responsable?
 
-### 📝 Invariante: Conservación de la Suma Total de Vida
+📌 La clase responsable de este alto consumo de CPU es la clase **Consumer**, específicamente el método `run()` que contiene el bucle `while (true)`.
 
-- Antes de que comiencen las peleas, la **suma de vida total** es:
-  - `Suma_inicial = N x 100`.
-- Durante la ejecución del juego, aunque los valores individuales cambian, el **total de puntos de vida** debería permanecer constante siempre que no haya interferencias en las operaciones de actualización.
-- Sin embargo, debido a la naturaleza concurrente del código, pueden existir **condiciones de carrera** que alteren esta propiedad.
+### 🔍 Evidencia en JVisualVM con los ajustes pertinentes
 
-### 🎯 Cálculo del Valor Invariante
+![alt text](image.png)
 
-Para **N** inmortales, cada uno comenzando con **100** puntos de vida, la sumatoria inicial debe ser:
-  - `Suma_total = N x 100`
+---
+## ✅ Consideraciones
 
-Este valor **debería mantenerse constante** en un instante donde no haya operaciones concurrentes en progreso.
-
-### 🔍 El Invariante se Cumple?
-Si el invariante se cumple, entonces la suma total de los puntos de vida deberian ser siempre N x 100.
-
-
-como podemos observar en esta imagen no se esta cumpliendo dicho invariante, ya que tenemos 3 jugadores inmortales y la suma nos esta dando 2270.
-![alt text](juego.png)
-
-  **🔎 Posibles causas:**
-  - **Condiciones de carrera**: Si varios hilos acceden a la vida de un inmortal sin **sincronización adecuada**, pueden ocurrir inconsistencias.
+- **📌 Límite de Stock**: El productor tiene un límite de stock de 5 elementos en la cola. Si la cola está llena, el productor esperará hasta que haya espacio disponible.
+- **⚖️ Producción y Consumo**: El productor puede ser configurado para producir rápidamente, mientras que el consumidor puede ser configurado para consumir lentamente, lo que permite observar el comportamiento del sistema bajo diferentes condiciones.
 
 ---
 ## 🤝 Contribuciones
@@ -130,11 +113,10 @@ como podemos observar en esta imagen no se esta cumpliendo dicho invariante, ya 
 Si deseas contribuir a este proyecto, siéntete libre de abrir un **issue** o enviar un **pull request**. Todas las contribuciones son bienvenidas. 🚀
 
 ---
-## 🐝 Licencia
+## 📜 Licencia
 
 📌 Este proyecto está bajo la Licencia **MIT**. Consulta el archivo `LICENSE` para más detalles. 📝
 
---
 # Parte III
 
 ## Revisión del Código y Análisis del Invariante
