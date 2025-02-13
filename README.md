@@ -117,3 +117,66 @@ Si deseas contribuir a este proyecto, siéntete libre de abrir un **issue** o en
 
 📌 Este proyecto está bajo la Licencia **MIT**. Consulta el archivo `LICENSE` para más detalles. 📝
 
+# Parte III
+
+## Revisión del Código y Análisis del Invariante
+
+El juego Highlander-Simulator implementa la mecánica de lucha entre inmortales de la siguiente manera:
+
+1. Creación de Inmortales
+   
+   - Se crean N jugadores (Immortal), cada uno con una vida inicial de 100 puntos (DEFAULT_IMMORTAL_HEALTH).
+   - Todos los inmortales comparten una lista immortalsPopulation, que les permite acceder a sus oponentes.
+2. Ataques entre Inmortales
+   - Cada inmortal corre en un hilo independiente (Thread).
+   - En el método run(), cada inmortal selecciona aleatoriamente a otro inmortal y lo ataca (fight(Immortal i2)).
+   - Si el oponente (i2) tiene más de 0 puntos de vida:
+      - Se le resta 10 puntos de vida (DEFAULT_DAMAGE_VALUE).
+      - El atacante suma 10 puntos de vida.
+   - Este ciclo se repite indefinidamente.
+3. Invariante: Conservación de la Suma Total de Vida
+   - Antes de que comiencen las peleas, la suma de vida total es: Suma_inicial = N x 100.
+   - Durante la ejecución del juego, aunque los valores individuales cambian, el total de puntos de vida debería permanecer constante siempre que no haya interferencias en las operaciones de actualización.
+   - Sin embargo, debido a la naturaleza concurrente del código, pueden existir condiciones de carrera que alteren esta propiedad.
+4. Cálculo del Valor Invariante
+   - Para N inmortales, cada uno comenzando con 100 puntos de vida, la sumatoria inicial debe ser: Suma_total = N x 100
+   - Este valor debería mantenerse constante en un instante donde no haya operaciones concurrentes en progreso.
+
+---
+## El invariante se cumple?
+Si el invariante se cumple, entonces la suma total de los puntos de vida deberian ser siempre N x 100.
+
+Como podemos observar en esta imagen no se esta cumpliendo dicho invariante, ya que tenemos 3 jugadores inmortales y la suma nos esta dando 2270.
+![alt text](juego.png)
+Como no se esta cumpliendo el invariante debe ser por:
+- Condiciones de carrera: Si varios hilos acceden a la vida de un inmortal sin sincronización adecuada, pueden ocurrir inconsistencias.
+- Errores en la implementación: Si la transferencia de vida no es atómica, podría perderse o duplicarse vida.
+
+## Condicion Carrera
+
+Podemos observar que el invariante es la suma de las vidas de los inmortales podemos darnos cuenta que la suma de los peleadores nos da el invariante esperado.
+![alt text](Invariante.png)
+en esta segunda imagen podemos ver que quedan dos peleadores y cuando son solo dos nunca se van a derrotar.
+![alt text](Invariante2.png)
+
+## Pruebas
+
+A la hora de probar con 100 inmortales el invariante no cambia.
+
+![alt text](Invariante100.png)
+
+A la hora de probar con 1000 inmortales el invariante no cambia.
+
+![alt text](Invariante1000.png)
+
+A la hora de probar con 10000 inmortales el invariante no cambia.
+
+![alt text](Invariante10000.png)
+
+## Implementacion STOP
+
+Cuando usamos el boton STOP lo que hace el programa es parar a los inmortales y dejan de golpearse.
+
+![alt text](stop.png)
+
+
