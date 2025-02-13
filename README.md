@@ -108,15 +108,6 @@ El proyecto está estructurado en varias clases:
 - **⚖️ Producción y Consumo**: El productor puede ser configurado para producir rápidamente, mientras que el consumidor puede ser configurado para consumir lentamente, lo que permite observar el comportamiento del sistema bajo diferentes condiciones.
 
 ---
-## 🤝 Contribuciones
-
-Si deseas contribuir a este proyecto, siéntete libre de abrir un **issue** o enviar un **pull request**. Todas las contribuciones son bienvenidas. 🚀
-
----
-## 📜 Licencia
-
-📌 Este proyecto está bajo la Licencia **MIT**. Consulta el archivo `LICENSE` para más detalles. 📝
-
 # Parte III
 
 ## Revisión del Código y Análisis del Invariante
@@ -178,5 +169,17 @@ A la hora de probar con 10000 inmortales el invariante no cambia.
 Cuando usamos el boton STOP lo que hace el programa es parar a los inmortales y dejan de golpearse.
 
 ![alt text](stop.png)
+
+---
+## 🤝 Contribuciones
+
+Si deseas contribuir a este proyecto, siéntete libre de abrir un **issue** o enviar un **pull request**. Todas las contribuciones son bienvenidas. 🚀
+
+---
+## 📜 Licencia
+
+📌 Este proyecto está bajo la Licencia **MIT**. Consulta el archivo `LICENSE` para más detalles. 📝
+
+
 
 
