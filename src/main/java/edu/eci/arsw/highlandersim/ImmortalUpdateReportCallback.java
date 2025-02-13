@@ -6,11 +6,11 @@
 package edu.eci.arsw.highlandersim;
 
 /**
+ * Interfaz que representa el callback de actualización de reporte.
  *
- * @author hcadavid
+ * @Autor: Diego Chicuazuque - Juan Cancelado
+ * @version 2.0 2/23/21
  */
 public interface ImmortalUpdateReportCallback {
-
-    public void processReport(String report);
-    
+  public void processReport(String report);
 }

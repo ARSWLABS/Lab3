@@ -19,23 +19,43 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * Clase que representa el control del juego.
+ *
+ * @Autor: Diego Chicuazuque - Juan Cancelado
+ * @version 2.0 2/23/21
+ */
 public class ControlFrame extends JFrame {
 
+  // Constantes para la salud y el daño por defecto
   private static final int DEFAULT_IMMORTAL_HEALTH = 100;
   private static final int DEFAULT_DAMAGE_VALUE = 10;
 
+  // Variable para controlar la pausa del juego
   public static boolean isPaused = false;
+
+  // Panel de contenido
   private JPanel contentPane;
 
+  // Lista de inmortales
   private List<Immortal> immortals;
 
+  // Área de texto para mostrar la salida
   private JTextArea output;
+
+  // Etiqueta para mostrar la suma de la salud de los inmortales
   private JLabel statisticsLabel;
+
+  // Panel de desplazamiento para la salida
   private JScrollPane scrollPane;
+
+  // Campo de texto para ingresar el número de inmortales
   private JTextField numOfImmortals;
 
   /**
-   * Launch the application.
+   * Método principal para lanzar la aplicación.
+   *
+   * @param args Argumentos de la línea de comandos.
    */
   public static void main(String[] args) {
     EventQueue.invokeLater(
@@ -53,7 +73,7 @@ public class ControlFrame extends JFrame {
   }
 
   /**
-   * Create the frame.
+   * Constructor de la clase ControlFrame.
    */
   public ControlFrame() {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -63,9 +83,11 @@ public class ControlFrame extends JFrame {
     contentPane.setLayout(new BorderLayout(0, 0));
     setContentPane(contentPane);
 
+    // Crear la barra de herramientas
     JToolBar toolBar = new JToolBar();
     contentPane.add(toolBar, BorderLayout.NORTH);
 
+    // Botón para iniciar el juego
     final JButton btnStart = new JButton("Start");
     btnStart.addActionListener(
       new ActionListener() {
@@ -84,6 +106,7 @@ public class ControlFrame extends JFrame {
     );
     toolBar.add(btnStart);
 
+    // Botón para pausar y verificar el juego
     JButton btnPauseAndCheck = new JButton("Pause and check");
     btnPauseAndCheck.addActionListener(
       new ActionListener() {
@@ -105,6 +128,7 @@ public class ControlFrame extends JFrame {
     );
     toolBar.add(btnPauseAndCheck);
 
+    // Botón para reanudar el juego
     JButton btnResume = new JButton("Resume");
 
     btnResume.addActionListener(
@@ -119,29 +143,52 @@ public class ControlFrame extends JFrame {
     );
     toolBar.add(btnResume);
 
+    // Etiqueta para mostrar el número de inmortales
     JLabel lblNumOfImmortals = new JLabel("num. of immortals:");
     toolBar.add(lblNumOfImmortals);
 
+    // Campo de texto para ingresar el número de inmortales
     numOfImmortals = new JTextField();
     numOfImmortals.setText("3");
     toolBar.add(numOfImmortals);
     numOfImmortals.setColumns(10);
 
+    // Botón para detener el juego
     JButton btnStop = new JButton("STOP");
     btnStop.setForeground(Color.RED);
+    btnStop.addActionListener(
+      new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          // Detener todos los inmortales
+          for (Immortal im : immortals) {
+            im.interrupt(); // Interrumpir el hilo del inmortal
+          }
+          immortals.clear(); // Limpiar la lista de inmortales
+          output.append("All immortals have been stopped.\n"); // Mensaje de salida
+        }
+      }
+    );
     toolBar.add(btnStop);
 
+    // Panel de desplazamiento para la salida
     scrollPane = new JScrollPane();
     contentPane.add(scrollPane, BorderLayout.CENTER);
 
+    // Área de texto para mostrar la salida
     output = new JTextArea();
     output.setEditable(false);
     scrollPane.setViewportView(output);
 
+    // Etiqueta para mostrar la suma de la salud de los inmortales
     statisticsLabel = new JLabel("Immortals total health:");
     contentPane.add(statisticsLabel, BorderLayout.SOUTH);
   }
 
+  /**
+   * Método para configurar los inmortales.
+   *
+   * @return La lista de inmortales configurados.
+   */
   public List<Immortal> setupInmortals() {
     ImmortalUpdateReportCallback ucb = new TextAreaUpdateReportCallback(
       output,
