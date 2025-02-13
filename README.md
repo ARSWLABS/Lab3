@@ -134,7 +134,6 @@ Si deseas contribuir a este proyecto, siéntete libre de abrir un **issue** o en
 
 📌 Este proyecto está bajo la Licencia **MIT**. Consulta el archivo `LICENSE` para más detalles. 📝
 
-<<<<<<< HEAD
 --
 # Parte III
 
@@ -173,8 +172,8 @@ Como no se esta cumpliendo el invariante debe ser por:
 
 ## Condicion Carrera
 
-=======
->>>>>>> e4e4b933b12517946acdb377c5db443c34d8ce75
+![alt text](Invariante.png)
+![alt text](invariante2.png)
 
 
 
