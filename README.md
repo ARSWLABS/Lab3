@@ -117,9 +117,10 @@ Si deseas contribuir a este proyecto, siéntete libre de abrir un **issue** o en
 
 📌 Este proyecto está bajo la Licencia **MIT**. Consulta el archivo `LICENSE` para más detalles. 📝
 
-## Parte III
+--
+# Parte III
 
-# Revisión del Código y Análisis del Invariante
+## Revisión del Código y Análisis del Invariante
 
 El juego Highlander-Simulator implementa la mecánica de lucha entre inmortales de la siguiente manera:
 
@@ -141,6 +142,11 @@ El juego Highlander-Simulator implementa la mecánica de lucha entre inmortales 
 4. Cálculo del Valor Invariante
    - Para N inmortales, cada uno comenzando con 100 puntos de vida, la sumatoria inicial debe ser: Suma_total = N x 100
    - Este valor debería mantenerse constante en un instante donde no haya operaciones concurrentes en progreso.
+
+---
+## El invariante se cumple?
+
+![alt text](juego.png)
 
 
 
