@@ -117,3 +117,31 @@ Si deseas contribuir a este proyecto, siéntete libre de abrir un **issue** o en
 
 📌 Este proyecto está bajo la Licencia **MIT**. Consulta el archivo `LICENSE` para más detalles. 📝
 
+## Parte III
+
+# Revisión del Código y Análisis del Invariante
+
+El juego Highlander-Simulator implementa la mecánica de lucha entre inmortales de la siguiente manera:
+
+1. Creación de Inmortales
+   
+   Se crean N jugadores (Immortal), cada uno con una vida inicial de 100 puntos (DEFAULT_IMMORTAL_HEALTH).
+   Todos los inmortales comparten una lista immortalsPopulation, que les permite acceder a sus oponentes.
+2. Ataques entre Inmortales
+   Cada inmortal corre en un hilo independiente (Thread).
+   En el método run(), cada inmortal selecciona aleatoriamente a otro inmortal y lo ataca (fight(Immortal i2)).
+   Si el oponente (i2) tiene más de 0 puntos de vida:
+      Se le resta 10 puntos de vida (DEFAULT_DAMAGE_VALUE).
+      El atacante suma 10 puntos de vida.
+   Este ciclo se repite indefinidamente.
+3. Invariante: Conservación de la Suma Total de Vida
+   Antes de que comiencen las peleas, la suma de vida total es: Suma_inicial = N x 100.
+   Durante la ejecución del juego, aunque los valores individuales cambian, el total de puntos de vida debería permanecer constante siempre que no haya interferencias en las operaciones de actualización.
+   Sin embargo, debido a la naturaleza concurrente del código, pueden existir condiciones de carrera que alteren esta propiedad.
+4. Cálculo del Valor Invariante
+   Para N inmortales, cada uno comenzando con 100 puntos de vida, la sumatoria inicial debe ser: Suma_total = N x 100
+   Este valor debería mantenerse constante en un instante donde no haya operaciones concurrentes en progreso.
+    
+
+
+
