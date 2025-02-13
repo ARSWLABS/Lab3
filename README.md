@@ -125,7 +125,7 @@ El juego Highlander-Simulator implementa la mecánica de lucha entre inmortales 
 
 1. Creación de Inmortales
    
-   Se crean N jugadores (Immortal), cada uno con una vida inicial de 100 puntos (DEFAULT_IMMORTAL_HEALTH).
+   - Se crean N jugadores (Immortal), cada uno con una vida inicial de 100 puntos (DEFAULT_IMMORTAL_HEALTH).
    Todos los inmortales comparten una lista immortalsPopulation, que les permite acceder a sus oponentes.
 2. Ataques entre Inmortales
    Cada inmortal corre en un hilo independiente (Thread).
@@ -141,7 +141,7 @@ El juego Highlander-Simulator implementa la mecánica de lucha entre inmortales 
 4. Cálculo del Valor Invariante
    Para N inmortales, cada uno comenzando con 100 puntos de vida, la sumatoria inicial debe ser: Suma_total = N x 100
    Este valor debería mantenerse constante en un instante donde no haya operaciones concurrentes en progreso.
-    
+
 
 
 
