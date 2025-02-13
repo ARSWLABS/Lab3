@@ -147,10 +147,15 @@ El juego Highlander-Simulator implementa la mecánica de lucha entre inmortales 
 ## El invariante se cumple?
 Si el invariante se cumple, entonces la suma total de los puntos de vida deberian ser siempre N x 100.
 
-como podemos observar en esta imagen no se esta cumpliendo dicho invariante, ya que tenemos 3 jugadores inmortales y la suma nos esta dando 2270.
+Como podemos observar en esta imagen no se esta cumpliendo dicho invariante, ya que tenemos 3 jugadores inmortales y la suma nos esta dando 2270.
 ![alt text](juego.png)
-como no se esta cumpliendo el invariante debe ser por:
+Como no se esta cumpliendo el invariante debe ser por:
 - Condiciones de carrera: Si varios hilos acceden a la vida de un inmortal sin sincronización adecuada, pueden ocurrir inconsistencias.
+- Errores en la implementación: Si la transferencia de vida no es atómica, podría perderse o duplicarse vida.
+
+## Condicion Carrera
+
+
 
 
 
