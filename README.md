@@ -172,10 +172,29 @@ Como no se esta cumpliendo el invariante debe ser por:
 
 ## Condicion Carrera
 
+Podemos observar que el invariante es la suma de las vidas de los inmortales podemos darnos cuenta que la suma de los peleadores nos da el invariante esperado.
 ![alt text](Invariante.png)
-![alt text](invariante2.png)
+en esta segunda imagen podemos ver que quedan dos peleadores y cuando son solo dos nunca se van a derrotar.
+![alt text](Invariante2.png)
 
+## Pruebas
 
+A la hora de probar con 100 inmortales el invariante no cambia.
 
+![alt text](Invariante100.png)
+
+A la hora de probar con 1000 inmortales el invariante no cambia.
+
+![alt text](Invariante1000.png)
+
+A la hora de probar con 10000 inmortales el invariante no cambia.
+
+![alt text](Invariante10000.png)
+
+## Implementacion STOP
+
+Cuando usamos el boton STOP lo que hace el programa es parar a los inmortales y dejan de golpearse.
+
+![alt text](stop.png)
 
 
